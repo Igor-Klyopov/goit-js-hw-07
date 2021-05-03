@@ -31,7 +31,7 @@ function createBoxes(amount) {
   const boxEls = [];
 
   for (let i = 0; i < amount; i += 1) {
-    let boxParam = {
+    const boxParam = {
       width: `${30 + i * 10}px`,
       height: `${30 + i * 10}px`,
       bgColor: makeRandomRgbColor(),
