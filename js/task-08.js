@@ -17,7 +17,7 @@ btnCreateBoxRef.addEventListener("click", onBtnCreateBoxClick);
 btnDeleteBoxRef.addEventListener("click", onBtnDeleteBoxClick);
 
 // Callback functions
-function getRandomRgbColor() {
+function makeRandomRgbColor() {
   const rgbNumer = () => Math.floor(Math.random() * 256);
 
   const r = rgbNumer();
@@ -29,18 +29,38 @@ function getRandomRgbColor() {
 
 function createBoxes(amount) {
   const boxEls = [];
-  for (let i = 1; i <= amount; i += 1) {
-    const boxEl = document.createElement("div");
-    boxEl.style.width = `${30 + i * 10}px`;
-    boxEl.style.height = `${30 + i * 10}px`;
-    boxEl.style.backgroundColor = getRandomRgbColor();
-    boxEl.style.margin = "5px";
-    boxEls.push(boxEl);
+
+  for (let i = 0; i < amount; i += 1) {
+    let boxParam = {
+      width: `${30 + i * 10}px`,
+      height: `${30 + i * 10}px`,
+      bgColor: makeRandomRgbColor(),
+    };
+    boxEls.push(boxParam);
   }
 
+  const makeBoxMurkup = ({ width, height, bgColor }) => {
+    return `<div
+      class="box"
+      style="width: ${width}; 
+      height: ${height}; 
+      background-color: ${bgColor};
+      margin: 5px"
+    ></div>`;
+  };
+
+  const BoxsMurkup = boxEls.map(makeBoxMurkup).join("");
+
   if (!boxesContainerRef.hasChildNodes()) {
-    boxesContainerRef.append(...boxEls);
+    boxesContainerRef.insertAdjacentHTML("beforeend", BoxsMurkup);
   }
+
+  let startPoint = boxesContainerRef.getElementsByClassName("box").length;
+
+  boxesContainerRef.insertAdjacentHTML(
+    "beforeend",
+    boxEls.slice(startPoint).map(makeBoxMurkup).join("")
+  );
 }
 
 function destroyBoxes() {
@@ -58,6 +78,65 @@ function onBtnDeleteBoxClick() {
 }
 
 //--вариант 2--//
+
+// // Elements references
+// const inputNumberOfBoxes = document.querySelector(
+//   "#controls input[type='number']"
+// );
+// const btnCreateBoxRef = document.querySelector(
+//   "#controls button[data-action='render']"
+// );
+// const btnDeleteBoxRef = document.querySelector(
+//   "#controls button[data-action='destroy']"
+// );
+// const boxesContainerRef = document.querySelector("#boxes");
+
+// // adding EventListeners
+// btnCreateBoxRef.addEventListener("click", onBtnCreateBoxClick);
+// btnDeleteBoxRef.addEventListener("click", onBtnDeleteBoxClick);
+
+// // Callback functions
+// function getRandomRgbColor() {
+//   const rgbNumer = () => Math.floor(Math.random() * 256);
+
+//   const r = rgbNumer();
+//   const g = rgbNumer();
+//   const b = rgbNumer();
+
+//   return `rgb(${r}, ${g}, ${b})`;
+// }
+
+// function createBoxes(amount) {
+//   const boxEls = [];
+//   for (let i = 0; i < amount; i += 1) {
+//     const boxEl = document.createElement("div");
+//     boxEl.style.width = `${30 + i * 10}px`;
+//     boxEl.style.height = `${30 + i * 10}px`;
+//     boxEl.style.backgroundColor = getRandomRgbColor();
+//     boxEl.style.margin = "5px";
+//     boxEls.push(boxEl);
+//   }
+
+//   if (!boxesContainerRef.hasChildNodes()) {
+//     boxesContainerRef.append(...boxEls);
+//   }
+// }
+
+// function destroyBoxes() {
+//   boxesContainerRef.innerHTML = "";
+//   inputNumberOfBoxes.value = "";
+// }
+
+// //Event handlers functions
+// function onBtnCreateBoxClick() {
+//   createBoxes(inputNumberOfBoxes.value);
+// }
+
+// function onBtnDeleteBoxClick() {
+//   destroyBoxes();
+// }
+
+//--вариант 3--//
 
 // const controlsContainerRef = document.querySelector("#controls");
 // const boxesRef = document.querySelector("#boxes");

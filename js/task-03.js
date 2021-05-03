@@ -29,9 +29,3 @@ const makeGalleryItemMarkup = ({ url, alt }) => {
 const makeGalleryItemsEls = images.map(makeGalleryItemMarkup).join("");
 
 galleryRef.insertAdjacentHTML("afterbegin", makeGalleryItemsEls);
-
-//---вариант 2---//
-// const makeGalleryItemsEls = (images) =>
-//   images.map(makeGalleryItemMarkup).join("");
-
-// galleryRef.insertAdjacentHTML("afterbegin", makeGalleryItemsEls(images));
