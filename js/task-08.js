@@ -1,5 +1,3 @@
-//--вариант 1--//
-
 // Elements references
 const inputNumberOfBoxes = document.querySelector(
   "#controls input[type='number']"
@@ -49,18 +47,18 @@ function createBoxes(amount) {
     ></div>`;
   };
 
-  const BoxsMurkup = boxEls.map(makeBoxMurkup).join("");
+  const makeBoxsEls = (elements) => elements.map(makeBoxMurkup).join("");
 
-  if (!boxesContainerRef.hasChildNodes()) {
-    boxesContainerRef.insertAdjacentHTML("beforeend", BoxsMurkup);
+  let boxesNumber = boxesContainerRef.getElementsByClassName("box").length;
+
+  if (boxesNumber > 0) {
+    return boxesContainerRef.insertAdjacentHTML(
+      "beforeend",
+      makeBoxsEls(boxEls.slice(boxesNumber))
+    );
   }
 
-  let startPoint = boxesContainerRef.getElementsByClassName("box").length;
-
-  boxesContainerRef.insertAdjacentHTML(
-    "beforeend",
-    boxEls.slice(startPoint).map(makeBoxMurkup).join("")
-  );
+  boxesContainerRef.insertAdjacentHTML("beforeend", makeBoxsEls(boxEls));
 }
 
 function destroyBoxes() {
