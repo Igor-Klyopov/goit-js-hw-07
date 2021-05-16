@@ -51,14 +51,14 @@ function createBoxes(amount) {
 
   let boxesNumber = boxesContainerRef.getElementsByClassName("box").length;
 
-  if (boxesNumber > 0) {
+  if (boxesNumber > 0 && boxesNumber <= amount) {
     return boxesContainerRef.insertAdjacentHTML(
       "beforeend",
       makeBoxsEls(boxEls.slice(boxesNumber))
     );
   }
 
-  boxesContainerRef.insertAdjacentHTML("beforeend", makeBoxsEls(boxEls));
+  boxesContainerRef.innerHTML = makeBoxsEls(boxEls);
 }
 
 function destroyBoxes() {
