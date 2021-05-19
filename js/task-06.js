@@ -1,20 +1,20 @@
 const validationInputRef = document.querySelector("#validation-input");
-
+let validSymbolsCount = validationInputRef.getAttribute("data-length");
 validationInputRef.addEventListener("change", highlightsInputValidation);
 
 function highlightsInputValidation() {
-  validationInputRef.classList.remove("valid");
-  validationInputRef.classList.remove("invalid");
+  let inputValueLength = validationInputRef.value.length;
+
+  validationInputRef.classList.add("invalid");
 
   if (
-    validationInputRef.value.length ===
-    parseInt(validationInputRef.dataset.length)
+    inputValueLength === parseInt(validSymbolsCount) &&
+    validationInputRef.value.trim() !== ""
   ) {
-    validationInputRef.classList.add("valid");
-  } else if (
-    validationInputRef.value.length >
-    parseInt(validationInputRef.dataset.length)
-  ) {
-    validationInputRef.classList.add("invalid");
+    validationInputRef.classList.replace("invalid", "valid");
+  }
+
+  if (validationInputRef.value === "") {
+    validationInputRef.classList.remove("invalid", "valid");
   }
 }

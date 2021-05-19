@@ -16,11 +16,11 @@ btnDeleteBoxRef.addEventListener("click", onBtnDeleteBoxClick);
 
 // Callback functions
 function makeRandomRgbColor() {
-  const rgbNumer = () => Math.floor(Math.random() * 256);
+  const rgbNumber = () => Math.floor(Math.random() * 256);
 
-  const r = rgbNumer();
-  const g = rgbNumer();
-  const b = rgbNumer();
+  const r = rgbNumber();
+  const g = rgbNumber();
+  const b = rgbNumber();
 
   return `rgb(${r}, ${g}, ${b})`;
 }
